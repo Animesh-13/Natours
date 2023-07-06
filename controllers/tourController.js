@@ -94,12 +94,15 @@ exports.getAllTour = catchAsync(async (req, res, next) => {
 });
 
 exports.getTour = catchAsync(async (req, res, next) => {
-  const tour = await Tour.findById(req.params.id);
-  // Tour.findOne({_id: req.params.id})
+  console.log('GET TOUR START', req.params.id);
+  // const tour = await Tour.findById(req.params.id);
+  const tour = await Tour.findOne({ _id: req.params.id });
+  console.log('GET TOUR mid');
 
   if (!tour) {
     return next(new AppError('No tour found with that ID', 404));
   }
+  console.log('GET TOUR end', tour);
 
   res.status(200).json({
     status: 'success',

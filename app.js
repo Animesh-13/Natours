@@ -11,6 +11,7 @@ const globalErrorHandler = require('./controllers/ErrorController');
 const AppError = require('./utils/appError');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
+const reviewRouter = require('./routes/reviewRoutes');
 
 // Use of MIDDLEWARE ------------->
 
@@ -64,7 +65,7 @@ app.use(express.static(`${__dirname}/public`));
 // Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
-  console.log(req.headers);
+  // console.log(req.headers);
   next();
 });
 
@@ -90,6 +91,7 @@ app.use((req, res, next) => {
 
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/reviews', reviewRouter);
 
 app.all('*', (req, next) => {
   // res.status(404).json({
