@@ -28,7 +28,7 @@ const userScheme = new mongoose.Schema({
     minlength: 8,
     select: false,
   },
-  passwordConfirm: {
+  confirmPassword: {
     type: String,
     required: [true, 'Please confirm your password'],
     validate: {
@@ -50,6 +50,9 @@ const userScheme = new mongoose.Schema({
     select: false,
   },
 });
+
+/* This is for password modification and encryption .... 
+Currently not using because of importing modified and encypted password... in user.json.document*/
 
 userScheme.pre('save', async function (next) {
   // Only run this function if password was actually modified
