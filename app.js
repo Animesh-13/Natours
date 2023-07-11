@@ -8,6 +8,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const globalErrorHandler = require('./controllers/ErrorController');
 const AppError = require('./utils/appError');
@@ -15,6 +16,13 @@ const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
+
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })
+);
 // Why this is used...........? Little explain
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -23,6 +31,22 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Set security HTTP headers
 app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      baseUri: ["'self'"],
+      fontSrc: ["'self'", 'https:', 'data:'],
+      scriptSrc: [
+        "'self'",
+        'https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js',
+      ],
+      objectSrc: ["'none'"],
+      styleSrc: ["'self'", 'https:', 'unsafe-inline'],
+      upgradeInsecureRequests: [],
+    },
+  })
+);
 
 // development logging
 // console.log(process.env.NODE_ENV);

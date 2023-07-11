@@ -16,15 +16,24 @@ const handleJwtExpiredError = () => {
   );
 };
 
-const sendErrorDev = (err, res) => {
-  res.status(err.statusCode).json({
-    status: err.status,
-    error: err,
-    message: err.message,
-    stack: err.stack,
-  });
+const sendErrorDev = (err, req, res) => {
+  // API
+  if (req.originalUrl.startWith('/api')) {
+    res.status(err.statusCode).json({
+      status: err.status,
+      error: err,
+      message: err.message,
+      stack: err.stack,
+    });
+  } else {
+    // Rendered Website
+    res.status(err.statusCode).render('error', {
+      title: 'Something went wrong!',
+      msg: err.message,
+    });
+  }
 };
-const sendErrorProd = (err, res) => {
+const sendErrorProd = (err, req, res) => {
   // Operational,trusted error: send message to client
   if (err.isOperational) {
     res.status(err.statusCode).json({
