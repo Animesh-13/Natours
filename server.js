@@ -8,14 +8,14 @@ const DB = process.env.DATABASE.replace('<password>', process.env.PASSWORD);
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
     useUnifiedTopology: true,
   })
   .then(() => console.log('DB connection successfull!'));
 
+// DEVELOPMENT BRANCH TEST
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-  console.log('APP is running');
+  console.log(`APP is running on  port : ${port}`);
 });
