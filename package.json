@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon server.js",
     "start2": "NODE_ENV=production nodemon server.js",
-    "debug": "ndb server.js"
+    "debug": "ndb server.js",
+    "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
   },
   "author": "Animesh k Srivastava",
   "license": "ISC",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "eslint": "^8.43.0",
     "nodemon": "^2.0.22",
+    "parcel-bundler": "^1.12.5",
     "prettier": "^2.8.8"
   }
 }
