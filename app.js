@@ -42,7 +42,7 @@ app.use(
         'https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js',
       ],
       objectSrc: ["'none'"],
-      styleSrc: ["'self'", 'https:', 'unsafe-inline'],
+      // styleSrc: ["'self'", 'https:', 'unsafe-inline'],
       upgradeInsecureRequests: [],
     },
   })

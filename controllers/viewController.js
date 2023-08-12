@@ -1,7 +1,6 @@
 const { render } = require('pug');
 const Tour = require('../models/tourModel');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
 
 exports.getOverview = catchAsync(async (req, res) => {
   // 1) Get tour data from collection
@@ -22,7 +21,6 @@ exports.getTour = catchAsync(async (req, res) => {
     path: 'reviews',
     fields: 'review rating user',
   });
-
   if (!tour) {
     return next(new AppError('There is no tour name'), 404);
   }
@@ -36,21 +34,10 @@ exports.getTour = catchAsync(async (req, res) => {
 });
 
 exports.getLoginForm = (req, res) => {
-  res
-    .status(200)
-    .set(
-      'Content-Security-Policy',
-      "script-src 'self' https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js 'unsafe-inline' 'unsafe-eval';"
-    )
-    .render('login', {
-      title: 'Log into your account',
-    });
+  res.status(200).render('login', {
+    title: 'Log into your account',
+  });
 };
-// exports.getLoginForm = (req, res) => {
-//   res.status(200).render('login', {
-//     title: 'Login with an account',
-//   });
-// };
 exports.getSignUpForm = (req, res) => {
   res.status(200).render('signUp', {
     title: 'SignUp with an account',

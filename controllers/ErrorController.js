@@ -18,7 +18,7 @@ const handleJwtExpiredError = () => {
 
 const sendErrorDev = (err, req, res) => {
   // API
-  if (req.originalUrl.startWith('/api')) {
+  if (req.originalUrl.startsWith('/api')) {
     res.status(err.statusCode).json({
       status: err.status,
       error: err,
