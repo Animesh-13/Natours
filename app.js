@@ -17,12 +17,7 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 
-app.use(
-  cors({
-    origin: 'http://localhost:3000',
-    credentials: true,
-  })
-);
+app.use(cors());
 // Why this is used...........? Little explain
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
