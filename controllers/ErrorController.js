@@ -17,7 +17,7 @@ const handleJwtExpiredError = () => {
 };
 
 const sendErrorDev = (err, req, res) => {
-  // API
+  // API              (err, res)
   if (req.originalUrl.startsWith('/api')) {
     res.status(err.statusCode).json({
       status: err.status,
@@ -59,7 +59,7 @@ module.exports = (err, req, res, next) => {
   err.status = err.status || 'err';
 
   if (process.env.NODE_ENV === 'development') {
-    sendErrorDev(err, res);
+    sendErrorDev(err, req, res);
   } else if (process.env.NODE_ENV === 'production') {
     let error = { ...err };
 
@@ -69,6 +69,6 @@ module.exports = (err, req, res, next) => {
     if (error.name === 'TokenExpiredError')
       error = handleJwtExpiredError(error);
 
-    sendErrorProd(error, res);
+    sendErrorProd(error, req, res);
   }
 };

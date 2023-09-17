@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
@@ -23,25 +22,6 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // Use of MIDDLEWARE ------------->
-
-// Set security HTTP headers
-app.use(helmet());
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      baseUri: ["'self'"],
-      fontSrc: ["'self'", 'https:', 'data:'],
-      scriptSrc: [
-        "'self'",
-        'https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js',
-      ],
-      objectSrc: ["'none'"],
-      // styleSrc: ["'self'", 'https:', 'unsafe-inline'],
-      upgradeInsecureRequests: [],
-    },
-  })
-);
 
 // development logging
 // console.log(process.env.NODE_ENV);
